@@ -1,8 +1,11 @@
-  
-/*
+ /*
     
-    Kasper Nyhus Kaae
-        s195087
+	Mehrdad Dadkhah
+	s195077
+	Oscar Emil Vinholt
+	s182500
+	Kasper Nyhus Kaae
+	s195087
 ---------------------------------
 SPI module for
 ARDUINO MEGA2560

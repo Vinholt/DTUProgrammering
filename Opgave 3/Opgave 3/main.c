@@ -1,4 +1,13 @@
-
+/*
+    
+	Mehrdad Dadkhah
+	s195077
+	Oscar Emil Vinholt
+	s182500
+    Kasper Nyhus Kaae
+    s195087
+	
+*/
 #define F_CPU 16000000UL
 
 #include <avr/io.h>
@@ -36,10 +45,6 @@ int getRawData() {
 	PORTB |= (1<<PB0); // set SS HIGH
 
 	temp_data = (MSB << 8 | LSB)>>3 ; // combine the two bytes in to one variable
-
-	/* Extraxt the 12bits of temperature information */
-	//temp_data = 0b111111111111 & (all_data >> 3); // 111111111111 & all_data (MINUS de tre første bits)
-
 	return temp_data;
 }
 
@@ -87,15 +92,7 @@ int main(void) {
 		deci = (temp*0.25 - reel_temp) * 100;
 		
 		sprintf(str, "%d.%0.2d", reel_temp, deci);
-		sendStrXY(str, 3,3);
-		
-		
-		//show_temp(temp);
-// 		sprintf(str, "%d", i);
-// 		sendStrXY(str, 1, 1);
-// 		i++;
-		
-		
+		sendStrXY(str, 3,3);		
 		_delay_ms(1000);
 	}
 }

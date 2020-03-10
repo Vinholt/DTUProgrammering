@@ -807,7 +807,7 @@ int main(void) {
      5a0:	1f 93       	push	r17
      5a2:	0f 93       	push	r16
      5a4:	9b d2       	rcall	.+1334   	; 0xadc <sprintf>
-		sendStrXY(str, 3,3);
+		sendStrXY(str, 3,3);		
      5a6:	43 e0       	ldi	r20, 0x03	; 3
      5a8:	50 e0       	ldi	r21, 0x00	; 0
      5aa:	63 e0       	ldi	r22, 0x03	; 3
@@ -838,9 +838,9 @@ int main(void) {
 
 000005d0 <SPI_init_master>:
      5d0:	84 b1       	in	r24, 0x04	; 4
-  
-  // DDRB &=~(1<<2);    // INPUT-PULLUP - PB2: MOSI
-  // PORTB |= (1<<2);
+void SPI_init_slave() {
+  DDRB |= (1<<3); // OUTPUT - PB3: MISO
+
   
   SPCR |= (1<<SPE) | (1<<CPOL); // SPI enable / Clk polarity - "clock starts HIGH" note: CPHA sets Clk phase
   PORTB |= (1<<PB0); // set SS HIGH
@@ -855,11 +855,10 @@ int main(void) {
      5e2:	08 95       	ret
 
 000005e4 <SPI_MasterTransmit>:
+}
 
 
 void SPI_MasterTransmit(char cData) {
-  //PORTB &=~ (1<<0); // set SS LOW
-
   SPDR = cData; // save to Data Register
      5e4:	8e bd       	out	0x2e, r24	; 46
 
@@ -868,7 +867,6 @@ void SPI_MasterTransmit(char cData) {
      5e8:	07 fe       	sbrs	r0, 7
      5ea:	fd cf       	rjmp	.-6      	; 0x5e6 <SPI_MasterTransmit+0x2>
 
-  //PORTB |= (1<<0); // set SS HIGH
 }
      5ec:	08 95       	ret
 
@@ -881,7 +879,7 @@ void SPI_MasterTransmit(char cData) {
 }
      5ee:	cf 93       	push	r28
      5f0:	c8 2f       	mov	r28, r24
-     5f2:	80 91 00 02 	lds	r24, 0x0200	; 0x800200 <__DATA_REGION_ORIGIN__>
+     5f2:	80 91 00 02 	lds	r24, 0x0200	; 0x800200 <__data_start>
      5f6:	2d df       	rcall	.-422    	; 0x452 <I2C_Start>
      5f8:	80 e0       	ldi	r24, 0x00	; 0
      5fa:	51 df       	rcall	.-350    	; 0x49e <I2C_Write>
@@ -947,7 +945,7 @@ void SPI_MasterTransmit(char cData) {
 0000066c <SendChar>:
      66c:	cf 93       	push	r28
      66e:	c8 2f       	mov	r28, r24
-     670:	80 91 00 02 	lds	r24, 0x0200	; 0x800200 <__DATA_REGION_ORIGIN__>
+     670:	80 91 00 02 	lds	r24, 0x0200	; 0x800200 <__data_start>
      674:	ee de       	rcall	.-548    	; 0x452 <I2C_Start>
      676:	80 e4       	ldi	r24, 0x40	; 64
      678:	12 df       	rcall	.-476    	; 0x49e <I2C_Write>
